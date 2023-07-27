@@ -1,0 +1,133 @@
+// Kelly Duong and Raminder Singh SUMO BOT Code
+const int bwdTrigger = A3;
+const int bwdEcho = A2;
+const int fwdTrigger = A1;
+const int fwdEcho = A0;
+// ^ ultrasonic sensor pin assignment ^
+
+void setup() {
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(8,OUTPUT);
+  //^motor driver
+  pinMode(4,INPUT); //line sensor
+  pinMode(9,OUTPUT); //drawbridge motor
+  pinMode(bwdTrigger,OUTPUT);
+  pinMode(bwdEcho,INPUT);
+  pinMode(fwdTrigger,OUTPUT);
+  pinMode(fwdEcho,INPUT);
+  pinMode(A5,INPUT); //pushbutton
+  dropDrawBridge();
+  startUp();
+  start();
+}
+
+void loop() { // if botDetect returns TRUE, then the bot will keep moving foward. If the bot sees nothing infornt of it, and it encounters a line, then defensive measures ar3e employed. If the bot does not see anything in front of it or it has not crossed the border, then the bot will keep spinning right until one of the two conditions above have been met.
+  if (botDetect()) {
+    fwd();
+  }
+  else if (lineDetect()) {
+    bwd();
+    delay(700);
+    right();
+    delay(700);    
+  }
+  else {
+    right();      
+  }
+  delay(50);
+}
+
+void dropDrawBridge() { // turning the motor on pin 9 on so that the draw bridge can drop
+  digitalWrite(9,HIGH);
+  delay(500);
+  digitalWrite(9,LOW);
+}
+
+void startUp() { //checks for push button, then delays 5 seconds
+ while (true) {
+    if (digitalRead(A5) == LOW) {
+      delay(5);
+      while (digitalRead(A5)==LOW) {}
+      delay(5000);
+      return;
+    }
+  }
+}
+
+void start() { // checks the position of the opponent using back sensor - attacks if they're back-to-back
+  double bwdDistance = distSensor(bwdTrigger, bwdEcho);
+  Serial.print(bwdDistance);
+  if (bwdDistance<=92 && bwdDistance>=2) {
+    bwd();
+    delay(5000);
+    return;
+  }
+}
+  
+bool botDetect() { // checks the position of the opponent using the foward sensor - then attacks
+  double fwdDistance = distSensor(fwdTrigger, fwdEcho);
+  if (fwdDistance<=92 && fwdDistance>=2) {
+    return(true);
+  }
+  else {
+    return(false);
+  }
+}
+
+bool lineDetect() { // checks if the bot is on the ring border - employs defensive measures
+  if (digitalRead(4)==LOW) {
+    return(true);
+  }
+  else {
+    return(false);
+  }
+}
+
+double distSensor(int trigger, int echo) { // returns the distance of the opponent in cm
+  digitalWrite(trigger,LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigger,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigger,LOW);
+  double duration = pulseIn(echo,HIGH);
+  double distance = duration*0.034/2;
+  return(distance);
+}
+
+void fwd() { // setting each motor driver pin so the bot can move foward
+  digitalWrite(2, HIGH);
+  digitalWrite(8, HIGH);
+    
+  digitalWrite(7,LOW);
+  digitalWrite(6,HIGH);
+  
+  digitalWrite(3,LOW);
+  digitalWrite(5,HIGH);  
+}
+
+void bwd() { // setting each motor driver pin so the bot can move backward
+  digitalWrite(2, HIGH);
+  digitalWrite(8, HIGH);
+    
+  digitalWrite(7,HIGH);
+  digitalWrite(6,LOW);
+  
+  digitalWrite(3,HIGH);
+  digitalWrite(5,LOW);
+}
+
+void right() { // setting each motor driver pin so that the bot can make a hard right turn
+  digitalWrite(2, 50);
+  digitalWrite(8, 100);
+
+  digitalWrite(7,HIGH);
+  digitalWrite(6,LOW);
+  
+  digitalWrite(3,LOW);
+  digitalWrite(5,HIGH); 
+} 
+
