@@ -1,5 +1,5 @@
 # SumoBot
-A robot designed with the intentions of pushing opposing robots out of a ring. Built from scratch (chassis, PCB, hardware, programming, etc.) with an Arduino. In this project, I applied my knowledge of the Arduino programming language (which is essentially C++) and the basics of handling hardware. 
+A robot designed with the intentions of pushing opposing robots out of a ring. Built from scratch (chassis, PCB, hardware, programming, etc.) with an Arduino. In this project, I applied my knowledge of the Arduino programming language (which is essentially C++) and the basics of handling hardware. PLEASE WATCH VIDEOS FOR CLEARER VISUAL.
 
 The requirements/criteria of this project:
 - Must stay within the black "battleground" surrounded by a white border
@@ -9,11 +9,13 @@ The requirements/criteria of this project:
 - at least 1 ultrasonic sensor (to detect distance of opposing bots)
 - at least 1 phototransistor (to detect battle white ring border)
   - when bright light is detected, the bot is at the edge of the ring (AKA DANGER!)
+- two motors controlled by a motor driver (for the wheels)
 - 5 sec delay before any movement
 
 Extra features:
 - extra ultrasonic sensor to allow pre-battle decision-making
   - triggers different functions for when the opponent is behind or beside
+- 1 extra motor and magnets to control the fold-out plastic sheet
 - white plastic sheet that folds down
   - triggers opposing bots' line detection function (tricks opponent into moving backwards (out of the ring))
   - causes slipping to opponent wheels
