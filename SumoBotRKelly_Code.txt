@@ -1,4 +1,5 @@
 // Kelly Duong and Raminder Singh SUMO BOT Code
+// Coded by Kelly, Commented by Raminder
 const int bwdTrigger = A3;
 const int bwdEcho = A2;
 const int fwdTrigger = A1;
@@ -25,7 +26,7 @@ void setup() {
   start();
 }
 
-void loop() { // if botDetect returns TRUE, then the bot will keep moving foward. If the bot sees nothing infornt of it, and it encounters a line, then defensive measures ar3e employed. If the bot does not see anything in front of it or it has not crossed the border, then the bot will keep spinning right until one of the two conditions above have been met.
+void loop() { //if botDetect returns TRUE, then the bot will keep moving foward. If the bot sees nothing infornt of it, and it encounters a line, then defensive measures are employed. If the bot does not see anything in front of it or it has not crossed the border, then the bot will keep spinning right until one of the two conditions above have been met.
   if (botDetect()) {
     fwd();
   }
@@ -58,7 +59,7 @@ void startUp() { //checks for push button, then delays 5 seconds
   }
 }
 
-void start() { // checks the position of the opponent using back sensor - attacks if they're back-to-back
+void start() { //checks the position of the opponent using back sensor - attacks if they're back-to-back
   double bwdDistance = distSensor(bwdTrigger, bwdEcho);
   Serial.print(bwdDistance);
   if (bwdDistance<=92 && bwdDistance>=2) {
@@ -68,7 +69,7 @@ void start() { // checks the position of the opponent using back sensor - attack
   }
 }
   
-bool botDetect() { // checks the position of the opponent using the foward sensor - then attacks
+bool botDetect() { //checks the position of the opponent using the foward sensor - then attacks
   double fwdDistance = distSensor(fwdTrigger, fwdEcho);
   if (fwdDistance<=92 && fwdDistance>=2) {
     return(true);
@@ -78,7 +79,7 @@ bool botDetect() { // checks the position of the opponent using the foward senso
   }
 }
 
-bool lineDetect() { // checks if the bot is on the ring border - employs defensive measures
+bool lineDetect() { //checks if the bot is on the ring border - employs defensive measures
   if (digitalRead(4)==LOW) {
     return(true);
   }
@@ -87,7 +88,7 @@ bool lineDetect() { // checks if the bot is on the ring border - employs defensi
   }
 }
 
-double distSensor(int trigger, int echo) { // returns the distance of the opponent in cm
+double distSensor(int trigger, int echo) { //returns the distance of the opponent in cm
   digitalWrite(trigger,LOW);
   delayMicroseconds(2);
   digitalWrite(trigger,HIGH);
@@ -98,7 +99,7 @@ double distSensor(int trigger, int echo) { // returns the distance of the oppone
   return(distance);
 }
 
-void fwd() { // setting each motor driver pin so the bot can move foward
+void fwd() { //setting each motor driver pin so the bot can move foward
   digitalWrite(2, HIGH);
   digitalWrite(8, HIGH);
     
@@ -109,7 +110,7 @@ void fwd() { // setting each motor driver pin so the bot can move foward
   digitalWrite(5,HIGH);  
 }
 
-void bwd() { // setting each motor driver pin so the bot can move backward
+void bwd() { //setting each motor driver pin so the bot can move backward
   digitalWrite(2, HIGH);
   digitalWrite(8, HIGH);
     
@@ -120,7 +121,7 @@ void bwd() { // setting each motor driver pin so the bot can move backward
   digitalWrite(5,LOW);
 }
 
-void right() { // setting each motor driver pin so that the bot can make a hard right turn
+void right() { //setting each motor driver pin so that the bot can make a hard right turn
   digitalWrite(2, 50);
   digitalWrite(8, 100);
 
