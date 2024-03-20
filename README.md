@@ -1,5 +1,5 @@
 # SumoBot
-A robot designed with the intentions of pushing opposing robots out of a ring. Built from scratch (chassis, PCB, hardware, programming, etc.) with an Arduino. In this project, I applied my knowledge of the Arduino programming language (which is essentially C++) and the basics of handling hardware. PLEASE WATCH VIDEOS FOR CLEARER VISUAL.
+A robot designed with the intentions of pushing opposing robots out of a ring. Built from scratch (chassis, PCB, hardware, programming, etc.) with an Arduino. In this project, I applied my knowledge of the Arduino programming language (similar to C++) and the basics of handling hardware. PLEASE WATCH VIDEOS FOR CLEARER VISUAL.
 
 Sumo Bot Battling Rules:
 - Must stay within the black "battleground" surrounded by a white border
